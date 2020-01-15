@@ -1,28 +1,44 @@
 import React from 'react';
 import {
-    Card, Button, CardTitle, CardText, Row, Col
+    Card, CardImg, CardText, CardBody, CardLink,
+  CardTitle, CardSubtitle, UncontrolledCollapse, Button
 } from 'reactstrap';
+import FollowersData from './FollowersData.js';
+import './../App.css'
 
 const UserCard = (props) => {
     return (
-        <Row>
-            <Col sm="6">
-            <Card body>
-                <CardTitle>Special Title Treatment</CardTitle>
-                <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                <Button>Go somewhere</Button>
+        <div className="user-card">
+            <Card>
+                <CardBody>
+                    <CardTitle>
+                        <h1>Name: {props.name}</h1>
+                    </CardTitle>
+                    <CardSubtitle><h2>Username: {props.login}</h2></CardSubtitle>
+                </CardBody>
+                <img width="20%" src={props.img} alt="Card image cap" className="user-img"/>
+                <CardBody>
+                    <CardText>Location: {props.location}</CardText>
+                    <CardText>Followers: {props.followers}</CardText>
+                    {/* Here I can add the expand button */}
+                </CardBody>
+                <div>
+                    <Button color="primary" id="toggler" style={{ marginBottom: '1rem' }}>
+                        Check out my Followers
+                    </Button>
+                    <UncontrolledCollapse toggler="#toggler">
+                    {props.followersData.map(follower => (
+                        <FollowersData img={follower.avatar_url} username={follower.login}/>
+                    ))};
+                   
+                    </UncontrolledCollapse>
+                </div>
             </Card>
-            </Col>
-            <Col sm="6">
-            <Card body>
-                <CardTitle>Special Title Treatment</CardTitle>
-                <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                <Button>Go somewhere</Button>
-            </Card>
-            </Col>
-        </Row>
-    )
+           
+        </div>
+    );
 };
+
 
 export default UserCard;
 
